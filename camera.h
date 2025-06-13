@@ -15,9 +15,9 @@ public:
     void render(const hittable& world) {
         initialize();
         std::cout <<"P3\n" << image_width <<" " <<image_height << "\n255\n";
-        for (int j =0; j<image_width; j++) {
+        for (int j =0; j<image_height; j++) {
             std::clog <<"\rScanlines remaining: " << (image_height - j) << ' ' <<std::flush;
-            for (int i =0; i<image_height; i++) {
+            for (int i =0; i<image_width; i++) {
                 color pixel_color(0,0,0);
                 for (int s =0; s<samples_per_pixel; s++) {
                     ray r = get_ray(i,j);
@@ -80,7 +80,7 @@ private:
         auto ray_direction = pixel_sample - ray_origin;
         return ray(ray_origin,ray_direction);
     }
-    vec3 sample_square() const {
+    static vec3 sample_square() {
         //returns the vector to a random point in the [-}
         return vec3(random_double() -0.5, random_double()-0.5 , 0);
 

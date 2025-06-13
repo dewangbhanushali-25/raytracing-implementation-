@@ -96,5 +96,12 @@ inline vec3 cross(const vec3& u, const vec3& v) {
 inline vec3 unit_vector(const vec3& v) {
     return v / v.length();
 }
+/*static vec3 random(){
+    return vec3(random_double(),random_double(),random_double());
+};
+static vec3 random(double min, double max) {
+    return vec3(random_double(min,max), random_double(min,max), random_double(min,max));
+}*/
+
 
 #endif
