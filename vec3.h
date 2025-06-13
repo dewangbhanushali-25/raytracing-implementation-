@@ -3,6 +3,8 @@
 
 //#include <cmath>
 //#include <iostream>
+#include <oneapi/tbb/task_arena.h>
+
 #include "rtweekend.h"
 
 class vec3 {
@@ -96,12 +98,30 @@ inline vec3 cross(const vec3& u, const vec3& v) {
 inline vec3 unit_vector(const vec3& v) {
     return v / v.length();
 }
-/*static vec3 random(){
-    return vec3(random_double(),random_double(),random_double());
-};
-static vec3 random(double min, double max) {
-    return vec3(random_double(min,max), random_double(min,max), random_double(min,max));
-}*/
+inline vec3 random_unit_vector() {
+    while (true) {
+        vec3 p = vec3(random_double(-1,1), random_double(-1,1), random_double(-1,1));
+        auto lensq = p.length_squared();
+        if (1e-160 < lensq && lensq <= 1) {
+            return p / std::sqrt(lensq);
+
+        }
+    }
+
+
+
+
+    }
+inline vec3 random_on_hemisphere(const vec3& normal) {
+    vec3 on_unit_sphere = random_unit_vector();
+    if (dot(on_unit_sphere, normal) > 0.0)
+        return on_unit_sphere;
+    else
+        return -on_unit_sphere;
+
+
+}
+
 
 
 #endif
