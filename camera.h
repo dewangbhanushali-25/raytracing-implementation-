@@ -7,10 +7,11 @@
 #include "hittable.h"
 class camera {
 public:
-    double aspect_ratio=1.0;
-    int  image_width = 100;
-    int samples_per_pixel = 10;
+    double aspect_ratio=1.0;//ratio of image width over height
 
+    int  image_width = 100;// randered image width of in pixel count
+    int samples_per_pixel = 10;//count of random samples for each pixel
+    int max_depth = 10;//maximum recursion depth for ray tracing
     //public camera parameters here
     void render(const hittable& world) {
         initialize();
@@ -21,7 +22,7 @@ public:
                 color pixel_color(0,0,0);
                 for (int s =0; s<samples_per_pixel; s++) {
                     ray r = get_ray(i,j);
-                    pixel_color += ray_color(r,world);
+                    pixel_color += ray_color(r,max_depth,world);
 
                 }
                 write_color(std::cout , pixel_samples_scale * pixel_color);
@@ -91,11 +92,16 @@ private:
 
 
 
-    color ray_color(const ray& r, const hittable& world) const {
+    color ray_color(const ray& r,int depth, const hittable& world) const {
+        //IF weve exceded the ray bounce limit, no more light is gathered.
         hit_record rec;
-        if (world.hit(r, interval(0, infinity), rec)) {
-            vec3 direction = random_on_hemisphere(rec.normal);
-            return 0.5 * ray_color(ray(rec.p, direction), world);
+        if (depth <= 0) {
+            return color(0,0,0);
+
+        }
+        if (world.hit(r, interval(0.001, infinity), rec)) {
+            vec3 direction = rec.normal + random_unit_vector();
+            return 0.5 * ray_color(ray(rec.p, direction),depth-1, world);
 
 
         }
