@@ -47,6 +47,14 @@ class vec3 {
     double length_squared() const {
         return e[0]*e[0] + e[1]*e[1] + e[2]*e[2];
     }
+
+    bool near_zero() const {
+        //return true if the vector is close to zero in all dimensions.
+        auto s = 1e-8;
+        return (std::fabs(e[0] )< s ) && (std::fabs(e[1]) < s ) && (std::fabs(e[2]) < s );
+
+    };
+
 };
 
 // point3 is just an alias for vec3, but useful for geometric clarity in the code.
@@ -98,6 +106,14 @@ inline vec3 cross(const vec3& u, const vec3& v) {
 inline vec3 unit_vector(const vec3& v) {
     return v / v.length();
 }
+
+
+
+
+
+
+
+
 inline vec3 random_unit_vector() {
     while (true) {
         vec3 p = vec3(random_double(-1,1), random_double(-1,1), random_double(-1,1));
@@ -119,6 +135,10 @@ inline vec3 random_on_hemisphere(const vec3& normal) {
     else
         return -on_unit_sphere;
 
+
+}
+inline vec3 reflect(const vec3& v, const vec3& n) {
+    return v - 2 * dot(v,n)*n;
 
 }
 
