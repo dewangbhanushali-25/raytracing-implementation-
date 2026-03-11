@@ -83,3 +83,8 @@ Camera parameters can be adjusted in `main.cpp`:
 ## License
 
 This project is for educational purposes. The original book content is provided free at [raytracing.github.io](https://raytracing.github.io) under the CC0 1.0 Universal license.
+
+
+## Ray Traced Sphere
+
+![Sphere Render](sphere.png)
