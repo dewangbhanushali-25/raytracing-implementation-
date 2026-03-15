@@ -50,5 +50,10 @@ public:
     color albedo;
     double fuzz;
 };
+class dielectric : public material {
+public:
+     
+}
 
 #endif //MATERIAL_H
+

@@ -48,11 +48,11 @@ int main() {
     world.add(make_shared<sphere>(point3(1.0, 0, -1.2), 0.5, mat_right));
 
     // Extra - brushed silver behind
-    auto mat_back_left = make_shared<metal>(color(0.9, 0.9, 0.9), 0.05);
+    auto mat_back_left = make_shared<metal>(color(0.8, 0.8, 0.8), 0.3);
     world.add(make_shared<sphere>(point3(-0.5, 0.3, -2.0), 0.4, mat_back_left));
 
     // Extra - copper with fuzz
-    auto mat_back_right = make_shared<metal>(color(0.7, 0.3, 0.1), 0.1);
+    auto mat_back_right = make_shared<metal>(color(0.8, 0.6, 0.2), 1.0);
     world.add(make_shared<sphere>(point3(0.5, 0.3, -2.0), 0.4, mat_back_right));
 
     camera cam;
