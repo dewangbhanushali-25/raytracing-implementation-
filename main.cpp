@@ -32,33 +32,19 @@ int main() {
     hittable_list world;
 
     // Ground
-    auto mat_ground = make_shared<lambertian>(color(0.8, 0.8, 0.0));
-    world.add(make_shared<sphere>(point3(0, -100.5, -1), 100, mat_ground));
+    auto material_ground = make_shared<lambertian>(color(0.8, 0.8, 0.0));
+    auto material_center = make_shared<lambertian>(color(0.1, 0.2, 0.5));
+    auto material_left   = make_shared<dielectric>(1.50);
+    auto material_right  = make_shared<metal> (color(0.8, 0.6, 0.2),1.0);
 
-    // Center - diffuse
-    auto mat_center = make_shared<lambertian>(color(0.1, 0.2, 0.5));
-    world.add(make_shared<sphere>(point3(0, 0, -1.2), 0.5, mat_center));
-
-    // Left - shiny metal
-    auto mat_left = make_shared<metal>(color(0.8, 0.8, 0.8), 0.0);
-    world.add(make_shared<sphere>(point3(-1.0, 0, -1.2), 0.5, mat_left));
-
-    // Right - gold metal
-    auto mat_right = make_shared<metal>(color(0.8, 0.6, 0.2), 0.0);
-    world.add(make_shared<sphere>(point3(1.0, 0, -1.2), 0.5, mat_right));
-
-    // Extra - brushed silver behind
-    auto mat_back_left = make_shared<metal>(color(0.8, 0.8, 0.8), 0.3);
-    world.add(make_shared<sphere>(point3(-0.5, 0.3, -2.0), 0.4, mat_back_left));
-
-    // Extra - copper with fuzz
-    auto mat_back_right = make_shared<metal>(color(0.8, 0.6, 0.2), 1.0);
-    world.add(make_shared<sphere>(point3(0.5, 0.3, -2.0), 0.4, mat_back_right));
-
+    world.add(make_shared<sphere>(point3( 0.0, -100.5, -1.0), 100.0, material_ground));
+    world.add(make_shared<sphere>(point3( 0.0,    0.0, -1.2),   0.5, material_center));
+    world.add(make_shared<sphere>(point3(-1.0,    0.0, -1.0),   0.5, material_left));
+    world.add(make_shared<sphere>(point3( 1.0,    0.0, -1.0),   0.5, material_right));
     camera cam;
     cam.aspect_ratio = 16.0 / 9.0;
-    cam.image_width = 800;
-    cam.samples_per_pixel = 200;
+    cam.image_width = 400;
+    cam.samples_per_pixel = 100;
     cam.max_depth = 50;
     cam.render(world);
 }
