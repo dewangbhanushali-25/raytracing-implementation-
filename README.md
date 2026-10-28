@@ -88,3 +88,4 @@ This project is for educational purposes. The original book content is provided 
 ## Ray Traced Sphere
 
 ![Sphere Render](sphere.png)
+![code_structure](Screenshot from 2026-10-29 00-28-29.png)
